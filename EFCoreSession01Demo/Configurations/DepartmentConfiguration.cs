@@ -1,12 +1,6 @@
 ﻿using EFCoreSession02Demo.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EFCoreSession02Demo.Configurations
 {
@@ -32,7 +26,6 @@ namespace EFCoreSession02Demo.Configurations
 
             D.Ignore(D => D.Serial); // Not Mapped 
 
-            D.Property<DateTime>("CreatedAt").HasDefaultValueSql("GETDATE()"); // Shadow Property
 
 
             #region Manage Relationship
@@ -40,6 +33,18 @@ namespace EFCoreSession02Demo.Configurations
                         .WithOne(D => D.ManagedDepartment)
                         .HasForeignKey<Department>(D => D.DeptManagerId)
                         .OnDelete(DeleteBehavior.Restrict);
+            #endregion
+
+
+            #region Data Seeding 
+
+
+            D.HasData(
+                new Department() { DeptId = 1, DeptName = "IT", DateOfCreation = new DateTime(2026, 10, 1) },
+                new Department() { DeptId = 2, DeptName = "Sales", DateOfCreation = new DateTime(2026, 05, 15) },
+                new Department() { DeptId = 3, DeptName = "HR", DateOfCreation = new DateTime(2026, 02, 20) }
+                );
+
             #endregion
         }
     }

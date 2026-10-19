@@ -34,6 +34,8 @@ namespace EFCoreSession02Demo.Configurations
 
             builder.Ignore(E => E.UserName);
 
+            builder.Property<DateTime>("CreatedAt").HasDefaultValueSql("GETDATE()"); // Shadow Property
+
             builder.ComplexProperty(E => E.EmpAddress);// EF Core 8
                                                        // 1-1 Mandatory
 

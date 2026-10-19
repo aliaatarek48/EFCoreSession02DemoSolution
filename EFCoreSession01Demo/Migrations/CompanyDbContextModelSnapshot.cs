@@ -47,11 +47,6 @@ namespace EFCoreSession02Demo.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DeptId"), 10L, 10);
 
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
-
                     b.Property<DateTime>("DateOfCreation")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
@@ -74,6 +69,26 @@ namespace EFCoreSession02Demo.Migrations
                         .HasFilter("[DeptManagerId] IS NOT NULL");
 
                     b.ToTable("Departments", "Sales");
+
+                    b.HasData(
+                        new
+                        {
+                            DeptId = 1,
+                            DateOfCreation = new DateTime(2026, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeptName = "IT"
+                        },
+                        new
+                        {
+                            DeptId = 2,
+                            DateOfCreation = new DateTime(2026, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeptName = "Sales"
+                        },
+                        new
+                        {
+                            DeptId = 3,
+                            DateOfCreation = new DateTime(2026, 2, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeptName = "HR"
+                        });
                 });
 
             modelBuilder.Entity("EFCoreSession02Demo.Models.Employee", b =>
@@ -86,6 +101,11 @@ namespace EFCoreSession02Demo.Migrations
 
                     b.Property<int>("Age")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<int>("DepartmentId")
                         .HasColumnType("int");

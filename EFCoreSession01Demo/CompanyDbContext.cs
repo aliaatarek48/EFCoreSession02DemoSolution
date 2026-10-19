@@ -37,6 +37,8 @@ namespace EFCoreSession02Demo
             //modelBuilder.Entity<Employee>().ToTable(T => T.HasCheckConstraint("Check_Employee_Email", "[Email] Like '%@%.%'"));
 
             //modelBuilder.Entity<Employee>().Ignore(E => E.UserName);
+            //modelBuilder.Entity<Employee>().Property<DateTime>("CreatedAt").HasDefaultValueSql("GETDATE()"); // Shadow Property
+
             #endregion
 
             modelBuilder.ApplyConfiguration<Department>(new DepartmentConfiguration());
